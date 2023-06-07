@@ -4,8 +4,8 @@ let calcResult = false;
 const inputInterface = document.querySelector('#input');
 
 function clearInnerHTML() {
-    inputInterface.innerHTML = "";
     operations = [];
+    inputInterface.textContent = parseInt(0, 10);
 }
 
 const clearButton = document.querySelector('#Clear');
@@ -16,7 +16,7 @@ const intButtons = document.querySelectorAll('.calculator .row button');
 intButtons.forEach(function(button) {
 
     button.addEventListener('click', function() {
-
+        console.log(operations)
         let inputDOM = document.querySelector("#input");
         console.log(calcResult)
 
@@ -24,6 +24,7 @@ intButtons.forEach(function(button) {
             inputDOM.innerHTML = "";   
             calcResult = false;
         }
+
         let inputValue = document.querySelector('#input').innerHTML;
         inputValue = parseInt(inputValue + button.innerHTML, 10);
         if (inputDOM.innerHTML === "Invalid Operation") {
@@ -44,7 +45,7 @@ const divisionButton = document.querySelector("#Division");
 equalButton.addEventListener('click', function(){
 
     if (!parseFloat(document.querySelector("#input").innerHTML)) {
-        clearInnerHTML();
+        //clearInnerHTML();
         inputInterface.textContent = "Invalid Operation";
         return;
     }
@@ -80,10 +81,11 @@ plusButton.addEventListener('click', function(){
 });
 
 minusButton.addEventListener('click', function(){
-
+    console.log(inputInterface.innerHTML)
     operations.push(parseFloat(document.querySelector('#input').innerHTML));
     operations.push('-');
     inputInterface.textContent = "";
+    calcResult = false;
 });
 
 timesButton.addEventListener('click', function(){
@@ -91,10 +93,12 @@ timesButton.addEventListener('click', function(){
     operations.push(parseFloat(document.querySelector('#input').innerHTML));
     operations.push('*');
     inputInterface.textContent = "";
+    calcResult = false;
 });
 
 divisionButton.addEventListener('click', function(){
     operations.push(parseFloat(document.querySelector('#input').innerHTML));
     operations.push('/');
     inputInterface.textContent = "";
+    calcResult = false;
 });
