@@ -1,2 +1,2 @@
 # javascript-calculator
-Simple JavaScript calculator.
+Simple JavaScript calculator based on Odin Project.
