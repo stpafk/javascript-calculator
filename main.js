@@ -2,20 +2,27 @@ let operations = []
 
 const inputInterface = document.querySelector('#input');
 
-const clearButton = document.querySelector('#Clear');
-clearButton.addEventListener('click', function (){
+function clearInnerHTML() {
     inputInterface.textContent = 0;
-    operations = []
-});
+    operations = [];
+}
+
+const clearButton = document.querySelector('#Clear');
+clearButton.addEventListener('click', clearInnerHTML)
 
 const intButtons = document.querySelectorAll('.calculator .row button');
 
 intButtons.forEach(function(button) {
 
     button.addEventListener('click', function() {
+        let inputDOM = document.querySelector("#input");
         let inputValue = document.querySelector('#input').innerHTML;
         inputValue = parseInt(inputValue + button.innerHTML, 10);
-        document.querySelector('#input').innerHTML = inputValue;
+        if (inputDOM.innerHTML !== "0" || inputDOM.innerHTML === "Invalid Operation") {
+            inputDOM.innerHTML = ""
+        }
+        inputDOM.innerHTML = inputValue;
+        console.log(operations)
     });
 
 });
@@ -27,6 +34,12 @@ const timesButton = document.querySelector("#Times");
 const divisionButton = document.querySelector("#Division");
 
 equalButton.addEventListener('click', function(){
+
+    if (!parseFloat(document.querySelector("#input").innerHTML)) {
+        clearInnerHTML();
+        inputInterface.textContent = "Invalid Operation";
+        return;
+    }
 
     operations.push(parseFloat(document.querySelector('#input').innerHTML));
     let result = operations[0];
@@ -54,7 +67,7 @@ plusButton.addEventListener('click', function(){
 
     operations.push(parseFloat(document.querySelector('#input').innerHTML));
     operations.push('+');
-    inputInterface.textContent = "";
+    inputInterface.textContent = "+";
 });
 
 minusButton.addEventListener('click', function(){
