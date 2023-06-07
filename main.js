@@ -1,9 +1,10 @@
 let operations = []
+let calcResult = false;
 
 const inputInterface = document.querySelector('#input');
 
 function clearInnerHTML() {
-    inputInterface.textContent = 0;
+    inputInterface.innerHTML = "";
     operations = [];
 }
 
@@ -15,14 +16,21 @@ const intButtons = document.querySelectorAll('.calculator .row button');
 intButtons.forEach(function(button) {
 
     button.addEventListener('click', function() {
+
         let inputDOM = document.querySelector("#input");
+        console.log(calcResult)
+
+        if (calcResult) {
+            inputDOM.innerHTML = "";   
+            calcResult = false;
+        }
         let inputValue = document.querySelector('#input').innerHTML;
         inputValue = parseInt(inputValue + button.innerHTML, 10);
-        if (inputDOM.innerHTML !== "0" || inputDOM.innerHTML === "Invalid Operation") {
-            inputDOM.innerHTML = ""
+        if (inputDOM.innerHTML === "Invalid Operation") {
+            inputDOM.innerHTML = "";
         }
+
         inputDOM.innerHTML = inputValue;
-        console.log(operations)
     });
 
 });
@@ -60,7 +68,8 @@ equalButton.addEventListener('click', function(){
         }
     }
     inputInterface.textContent = result;
-    operations = []
+    operations = [];
+    calcResult = true;
 });
 
 plusButton.addEventListener('click', function(){
